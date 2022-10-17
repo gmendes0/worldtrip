@@ -20,10 +20,30 @@ import "swiper/css/pagination";
 import Header from "../components/Header";
 import TripType from "../components/TripType";
 import { NavigationOptions, PaginationOptions } from "swiper/types";
+import { ContinentSlide } from "../components/ContinentSlide";
+import { useEffect, useState } from "react";
+import { api } from "../services/api";
 
 // import bannerImage from "../../public/Background.png";
 
+type TContinent = {
+  id: number;
+  name: string;
+  subtitle: string;
+  image: string;
+};
+
+type TContinentsResponse = TContinent[];
+
 const Home: NextPage = () => {
+  const [continents, setContinents] = useState<TContinent[]>([]);
+
+  useEffect(() => {
+    api.get<TContinentsResponse>("/continents").then((response) => {
+      setContinents(response.data);
+    });
+  }, []);
+
   const pagination: PaginationOptions = {
     bulletClass: "swiper-pagination-bullet my-bullet",
   };
@@ -109,53 +129,17 @@ const Home: NextPage = () => {
             maxHeight: 450,
           }}
         >
-          <SwiperSlide>
-            <Box position="relative" h="100%" w="100%">
-              <Box
-                position="absolute"
-                zIndex={5}
-                top="calc(225px - ((1rem + var(--chakra-fontSizes-5xl) + var(--chakra-fontSizes-md)) / 2))" // {225}
-                left={0}
-                w="100%"
-                textAlign="center"
-              >
-                <ChakraLink
-                  // position="absolute"
-                  // zIndex={5}
-                  // top={225}
-                  // left={0}
-                  // w="100%"
-                  // textAlign="center"
-                  p={0}
-                  m={0}
-                  // lineHeight={0}
-                  fontWeight={700}
-                  fontSize="5xl"
-                  color="gray.50"
-                  href="#"
-                >
-                  América do Norte
-                </ChakraLink>
-
-                <Text
-                  mt="1rem"
-                  p={0}
-                  m={0}
-                  // lineHeight={0}
-                  fontWeight={700}
-                  fontSize="2xl"
-                  color="gray.100"
-                >
-                  O continente mais antigo
-                </Text>
-              </Box>
-              <Image src="/rj.jpg" width={1920} height={1080} />
-            </Box>
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <Image src="/south-america.jpg" width={1920} height={1080} />
-          </SwiperSlide>
+          {continents.map((continent) => (
+            <SwiperSlide>
+              <ContinentSlide
+                key={continent.id}
+                image={continent.image}
+                name={continent.name}
+                subtitle={continent.subtitle}
+                id={continent.id}
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </Flex>
     </>
