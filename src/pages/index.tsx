@@ -1,21 +1,33 @@
-import { Box, Flex, HStack, Text, Divider } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  HStack,
+  Text,
+  Divider,
+  Link as ChakraLink,
+} from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper";
+import { Navigation, Pagination } from "swiper";
 
 import "swiper/css";
 import "swiper/css/navigation";
-// import "swiper/css/pagination";
+import "swiper/css/pagination";
 // import "swiper/css/scrollbar";
 
 import Header from "../components/Header";
 import TripType from "../components/TripType";
+import { NavigationOptions, PaginationOptions } from "swiper/types";
 
 // import bannerImage from "../../public/Background.png";
 
 const Home: NextPage = () => {
+  const pagination: PaginationOptions = {
+    bulletClass: "swiper-pagination-bullet my-bullet",
+  };
+
   return (
     <>
       <Head>
@@ -86,10 +98,59 @@ const Home: NextPage = () => {
         </Text>
       </Flex>
 
-      <Flex w="100%" align="center">
-        <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
+      <Flex w="100%" align="center" mb="3.25rem">
+        <Swiper
+          pagination={pagination}
+          navigation={true}
+          modules={[Navigation, Pagination]}
+          className="mySwiper"
+          style={{
+            maxWidth: 1024,
+            maxHeight: 450,
+          }}
+        >
           <SwiperSlide>
-            <Image src="/north-america.jpg" width={1920} height={1080} />
+            <Box position="relative" h="100%" w="100%">
+              <Box
+                position="absolute"
+                zIndex={5}
+                top="calc(225px - ((1rem + var(--chakra-fontSizes-5xl) + var(--chakra-fontSizes-md)) / 2))" // {225}
+                left={0}
+                w="100%"
+                textAlign="center"
+              >
+                <ChakraLink
+                  // position="absolute"
+                  // zIndex={5}
+                  // top={225}
+                  // left={0}
+                  // w="100%"
+                  // textAlign="center"
+                  p={0}
+                  m={0}
+                  // lineHeight={0}
+                  fontWeight={700}
+                  fontSize="5xl"
+                  color="gray.50"
+                  href="#"
+                >
+                  América do Norte
+                </ChakraLink>
+
+                <Text
+                  mt="1rem"
+                  p={0}
+                  m={0}
+                  // lineHeight={0}
+                  fontWeight={700}
+                  fontSize="2xl"
+                  color="gray.100"
+                >
+                  O continente mais antigo
+                </Text>
+              </Box>
+              <Image src="/rj.jpg" width={1920} height={1080} />
+            </Box>
           </SwiperSlide>
 
           <SwiperSlide>

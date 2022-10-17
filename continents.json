@@ -1,0 +1,16 @@
+{
+  "continents": [
+    {
+      "id": 1,
+      "name": "Europa",
+      "description": "O continente mais antigo",
+      "image": "http://localhost:3000/_next/image?url=%2Frj.jpg&w=1920&q=75"
+    },
+    {
+      "id": 1,
+      "name": "Europa",
+      "description": "O continente mais antigo",
+      "image": "http://localhost:3000/_next/image?url=%2Frj.jpg&w=1920&q=75"
+    }
+  ]
+}

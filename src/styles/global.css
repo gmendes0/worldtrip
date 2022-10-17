@@ -1,0 +1,8 @@
+body {
+margin: 0;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #FFBA08 !important;
+}
